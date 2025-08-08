@@ -14,7 +14,11 @@ class SubtestScreen extends StatelessWidget {
         itemCount: subtests.length,
         itemBuilder: (c, i) => ListTile(
           title: Text(subtests[i]),
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => QuestionScreen(subtest: subtests[i], childMap: childMap))),
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => QuestionScreen(
+                      subtest: subtests[i], childMap: childMap))),
         ),
       ),
     );

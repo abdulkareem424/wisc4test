@@ -15,13 +15,13 @@ class DbService {
 
   Future<void> _open() async {
     if (_db != null) return;
-    
+
     // Initialize sqflite_ffi for desktop support
     if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
       sqfliteFfiInit();
       databaseFactory = databaseFactoryFfi;
     }
-    
+
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, 'wisc.db');
     _db = await openDatabase(path, version: 1, onCreate: _onCreate);
@@ -120,6 +120,7 @@ class DbService {
 
   Future<List<Map<String, dynamic>>> getAnswersForSession(int sessionId) async {
     await _ensureInitialized();
-    return await _db!.query('answers', where: 'sessionId = ?', whereArgs: [sessionId]);
+    return await _db!
+        .query('answers', where: 'sessionId = ?', whereArgs: [sessionId]);
   }
 }

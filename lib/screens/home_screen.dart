@@ -11,7 +11,10 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => const ChildSelectionScreen()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => const ChildSelectionScreen()));
           },
           child: const Text('ابدأ الاختبار'),
         ),

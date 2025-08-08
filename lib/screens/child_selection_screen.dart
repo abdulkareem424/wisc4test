@@ -11,7 +11,8 @@ class ChildSelectionScreen extends StatefulWidget {
   State<ChildSelectionScreen> createState() => _ChildSelectionScreenState();
 }
 
-class _ChildSelectionScreenState extends State<ChildSelectionScreen> with SingleTickerProviderStateMixin {
+class _ChildSelectionScreenState extends State<ChildSelectionScreen>
+    with SingleTickerProviderStateMixin {
   List<Map<String, dynamic>> children = [];
   List<Map<String, dynamic>> adults = [];
   late TabController _tabController;
@@ -27,7 +28,7 @@ class _ChildSelectionScreenState extends State<ChildSelectionScreen> with Single
     final db = Provider.of<DbService>(context, listen: false);
     final childrenList = await db.getChildren();
     final adultsList = await db.getAdults();
-    setState(() { 
+    setState(() {
       children = childrenList;
       adults = adultsList;
     });
@@ -116,7 +117,8 @@ class _ChildSelectionScreenState extends State<ChildSelectionScreen> with Single
                   itemBuilder: (c, i) {
                     final ch = children[i];
                     return Card(
-                      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       child: ListTile(
                         leading: CircleAvatar(
                           backgroundColor: Colors.blue.shade100,
@@ -126,10 +128,14 @@ class _ChildSelectionScreenState extends State<ChildSelectionScreen> with Single
                           ),
                         ),
                         title: Text('${ch['firstName']} ${ch['lastName']}'),
-                        subtitle: Text('تاريخ الميلاد: ${ch['dob']?.substring(0, 10) ?? ''}'),
+                        subtitle: Text(
+                            'تاريخ الميلاد: ${ch['dob']?.substring(0, 10) ?? ''}'),
                         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_) => SubtestScreen(childMap: ch)));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => SubtestScreen(childMap: ch)));
                         },
                       ),
                     );
@@ -166,7 +172,10 @@ class _ChildSelectionScreenState extends State<ChildSelectionScreen> with Single
                 title: Text('${adult['firstName']} ${adult['lastName']}'),
                 subtitle: Text(adult['dob'] ?? ''),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => SubtestScreen(childMap: adult)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => SubtestScreen(childMap: adult)));
                 },
               );
             },
@@ -182,45 +191,57 @@ class _ChildSelectionScreenState extends State<ChildSelectionScreen> with Single
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          TextField(controller: _first, decoration: const InputDecoration(labelText: 'الاسم')),
-          TextField(controller: _last, decoration: const InputDecoration(labelText: 'الكنية')),
+          TextField(
+              controller: _first,
+              decoration: const InputDecoration(labelText: 'الاسم')),
+          TextField(
+              controller: _last,
+              decoration: const InputDecoration(labelText: 'الكنية')),
           Row(
             children: [
-              Expanded(child: Text(_picked == null ? 'تاريخ الميلاد' : _picked!.toIso8601String().split('T').first)),
-              ElevatedButton(onPressed: () async {
-                final d = await showDatePicker(
-                  context: context, 
-                  initialDate: isChild ? DateTime(2016) : DateTime(1990), 
-                  firstDate: DateTime(1950), 
-                  lastDate: DateTime.now()
-                );
-                if (d != null) setState(() => _picked = d);
-              }, child: const Text('اختار تاريخ'))
+              Expanded(
+                  child: Text(_picked == null
+                      ? 'تاريخ الميلاد'
+                      : _picked!.toIso8601String().split('T').first)),
+              ElevatedButton(
+                  onPressed: () async {
+                    final d = await showDatePicker(
+                        context: context,
+                        initialDate: isChild ? DateTime(2016) : DateTime(1990),
+                        firstDate: DateTime(1950),
+                        lastDate: DateTime.now());
+                    if (d != null) setState(() => _picked = d);
+                  },
+                  child: const Text('اختار تاريخ'))
             ],
           ),
-          ElevatedButton(onPressed: () async {
-            if (_first.text.isEmpty || _last.text.isEmpty || _picked == null) return;
-            final db = Provider.of<DbService>(context, listen: false);
-            
-            if (isChild) {
-              await db.insertChild({
-                'firstName': _first.text, 
-                'lastName': _last.text, 
-                'dob': _picked!.toIso8601String()
-              });
-            } else {
-              await db.insertAdult({
-                'firstName': _first.text, 
-                'lastName': _last.text, 
-                'dob': _picked!.toIso8601String()
-              });
-            }
-            
-            _first.clear(); 
-            _last.clear(); 
-            _picked = null;
-            await _loadData();
-          }, child: Text(isChild ? 'أضف طفل' : 'أضف بالغ'))
+          ElevatedButton(
+              onPressed: () async {
+                if (_first.text.isEmpty ||
+                    _last.text.isEmpty ||
+                    _picked == null) return;
+                final db = Provider.of<DbService>(context, listen: false);
+
+                if (isChild) {
+                  await db.insertChild({
+                    'firstName': _first.text,
+                    'lastName': _last.text,
+                    'dob': _picked!.toIso8601String()
+                  });
+                } else {
+                  await db.insertAdult({
+                    'firstName': _first.text,
+                    'lastName': _last.text,
+                    'dob': _picked!.toIso8601String()
+                  });
+                }
+
+                _first.clear();
+                _last.clear();
+                _picked = null;
+                await _loadData();
+              },
+              child: Text(isChild ? 'أضف طفل' : 'أضف بالغ'))
         ],
       ),
     );
