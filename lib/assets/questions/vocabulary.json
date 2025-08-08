@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "text": "What is a bicycle?",
+    "maxScore": 2,
+    "timeLimit": 30
+  },
+  {
+    "id": 2,
+    "text": "What does 'happy' mean?",
+    "maxScore": 2,
+    "timeLimit": 30
+  },
+  {
+    "id": 3,
+    "text": "What is a telephone?",
+    "maxScore": 2,
+    "timeLimit": 30
+  },
+  {
+    "id": 4,
+    "text": "What does 'angry' mean?",
+    "maxScore": 2,
+    "timeLimit": 30
+  },
+  {
+    "id": 5,
+    "text": "What is a computer?",
+    "maxScore": 2,
+    "timeLimit": 30
+  }
+]

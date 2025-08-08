@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "text": "Arrange the blocks to match the pattern",
+    "maxScore": 2,
+    "timeLimit": 45
+  },
+  {
+    "id": 2,
+    "text": "Copy this block design",
+    "maxScore": 2,
+    "timeLimit": 45
+  },
+  {
+    "id": 3,
+    "text": "Create this complex pattern",
+    "maxScore": 2,
+    "timeLimit": 60
+  },
+  {
+    "id": 4,
+    "text": "Build this advanced design",
+    "maxScore": 2,
+    "timeLimit": 75
+  }
+]
